@@ -1,9 +1,11 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
-import store from './vuex/store'
-import router from './router/router'
+import Store from './vuex/store'
+import Router from './router/router'
 import 'material-design-icons-iconfont'
-import ''
+import styles from '@/assets/styles/styles.scss'
+
+createApp(App).use(Store).use(Router).mount('#app')
 
 
-createApp(App).use(store, router).mount('#app')
+

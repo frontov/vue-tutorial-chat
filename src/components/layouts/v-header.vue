@@ -30,11 +30,10 @@ export default {
       "currentChatUser"
     ]),
     isRoot() {
-      return this.$router.currentRoute.value.path === '/';
+      return this.$route.path === '/';
     }
   },
   mounted() {
-    console.log(this.$router.currentRoute.value.path)
   },
   methods: {
     goBack() {

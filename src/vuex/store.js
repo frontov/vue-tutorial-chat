@@ -5,10 +5,14 @@ import axios from "axios";
 export default Vuex.createStore({
     state:{
         contacts:[],
+        chats:[],
         currentChatUser:{}
     },
     getters:{},
     mutations:{
+        SET_CHATS_TO_STORE(state, chats){
+            state.chats=chats;
+        },
         SET_CONTACTS_TO_STORE(state, contacts){
             state.contacts = contacts;
         },
@@ -18,6 +22,12 @@ export default Vuex.createStore({
 
     },
     actions:{
+        FETCH_CHATS({commit}){
+            return axios.get('http://localhost:3000/chats')
+                .then((chats)=>{
+                    commit('SET_CHATS_TO_STORE', chats.data)
+                })
+        },
         FETCH_CONTACTS({commit}){
             return axios.get('http://localhost:3000/contacts')
                 .then((contacts) => {

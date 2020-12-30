@@ -1,9 +1,9 @@
 <template>
   <div class="v-users-list">
     <v-user
-    v-for="chat in chats"
-    :key="chat.id"
-    :user-data="chat"/>
+        v-for="chat in chats"
+        :key="chat.id"
+        :userData="chat"/>
   </div>
 </template>
 

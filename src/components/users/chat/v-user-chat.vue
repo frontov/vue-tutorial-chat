@@ -1,9 +1,9 @@
 <template>
   <div class="v-user-chat">
     <v-message
-    v-for="message in messages"
-    :key="message.id"
-    :message="message"
+        v-for="message in currentChat.chat"
+        :key="message.id"
+        :message="message"
     ></v-message>
     <div class="input__field">
       <input
@@ -21,18 +21,29 @@
 
 <script>
 import vMessage from './v-message'
+import {mapState} from 'vuex'
 
 export default {
   name: "v-user-chat",
   props: {
-    messages: {
-      type: Array,
-      default: () => []
+    id: {
+      type: String,
+      default: () => '0'
     },
     user: {
       type: Object,
       default: () => {
       }
+    }
+  },
+  computed: {
+    ...mapState([
+      'chats'
+    ]),
+    currentChat() {
+      return this.chats.find((c) => {
+        return c.id == this.id
+      })
     }
   },
   methods: {
@@ -49,7 +60,10 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.query)
+    // console.log(this.$route.params)
+    // console.log(this.id)
+    // console.log(this.chats)
+    console.log(this.currentChat)
   }
 }
 </script>

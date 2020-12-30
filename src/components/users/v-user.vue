@@ -22,11 +22,17 @@ export default {
   },
   methods:{
     openChat(){
+      // console.log(this.userData.chat)
+      // console.log(this.userData)
+
       this.$router.push({
         name: 'chat',
-        params: {'messages':this.userData.chat, 'user':this.userData}
+        params: {'id':this.userData.id}
       })
     }
+  },
+  mounted() {
+    // console.log(this.userData)
   }
 }
 </script>

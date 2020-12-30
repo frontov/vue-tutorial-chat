@@ -15,10 +15,13 @@ export default {
       type: Object,
       default: ()=> {}
     }
+  },
+  mounted() {
+    console.log(this.message)
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

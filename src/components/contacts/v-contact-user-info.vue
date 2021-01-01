@@ -7,7 +7,8 @@
       </div>
       <div class="info__tools">
         <button class="start-call">Call</button>
-        <button class="start-chat">Chat</button>
+        <button class="start-chat"
+        @click="openChat">Chat</button>
       </div>
     </div>
 
@@ -15,7 +16,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapActions, mapState} from 'vuex';
 
 export default {
   name: "v-contact-user-info",
@@ -35,6 +36,21 @@ export default {
         this.contact_data = contact;
       }
     })
+  },
+  methods:{
+    openChat(){
+      this.FETCH_CHATS().
+          then(()=>{
+        this.$router.push({
+          name: 'chat',
+          query: {'id': this.contact_data.id}
+        })
+      })
+
+    },
+    ...mapActions([
+      'FETCH_CHATS'
+    ]),
   }
 }
 </script>

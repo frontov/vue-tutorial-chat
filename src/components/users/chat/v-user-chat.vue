@@ -21,34 +21,44 @@
 
 <script>
 import vMessage from './v-message'
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: "v-user-chat",
-  props: {
-    id: {
-      type: String,
-      default: () => '0'
-    },
-    user: {
-      type: Object,
-      default: () => {
-      }
-    }
-  },
+  props: {},
   computed: {
     ...mapState([
       'chats'
     ]),
-    currentChat() {
-      return this.chats.find((c) => {
-        return c.id == this.id
-      })
-    }
+    // currentChat() {
+    //   return this.chats.find((c) => {
+    //     return c.id == this.id
+    //   })
+    // }
   },
   methods: {
+    ...mapActions([
+      'ADD_MESSAGE_TO_CHAT',
+      'FETCH_CHATS',
+      'SET_USER_TO_HEADER'
+    ]),
     sendMessage() {
+      let chat = {
+        id: this.currentChat.chat.length,
+        time: new Date().toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: 'numeric',
+          minute: 'numeric'
+        }),
+        text: this.textValue,
+        type: "own"
+      }
+      this.currentChat.chat.push(chat);
 
+      this.ADD_MESSAGE_TO_CHAT({userId: this.currentChat.id, chat: this.currentChat}).then(() => {
+        this.FETCH_CHATS();
+        this.textValue = ""
+      });
     }
   },
   components: {
@@ -56,18 +66,29 @@ export default {
   },
   data() {
     return {
-      textValue: ''
+      textValue: '',
+      currentChat: {}
     }
   },
   mounted() {
-    // console.log(this.$route.params)
-    // console.log(this.id)
-    // console.log(this.chats)
-    console.log(this.currentChat)
+    this.FETCH_CHATS()
+        .then(() => {
+          this.chats.find((chat) => {
+            if (chat.id == this.$route.query.id) {
+              this.currentChat = chat;
+            }
+          })
+        })
+        .then(() => {
+          this.SET_USER_TO_HEADER(this.currentChat)
+        });
+
+
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
+

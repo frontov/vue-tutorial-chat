@@ -36,6 +36,12 @@ export default Vuex.createStore({
         },
         SET_USER_TO_HEADER({commit}, user){
             commit('SET_USER', user);
+        },
+        ADD_MESSAGE_TO_CHAT({commit}, {userId, chat}){
+            return axios.put('http://localhost:3000/chats/'+userId, chat)
+                .then((response)=>{
+                    return response;
+                })
         }
     }
 })

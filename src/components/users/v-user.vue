@@ -24,11 +24,16 @@ export default {
     openChat(){
       // console.log(this.userData.chat)
       // console.log(this.userData)
-
+      //
+      // this.$router.push({
+      //   name: 'chat',
+      //   params: {'id':this.userData.id}
+      // })
       this.$router.push({
         name: 'chat',
-        params: {'id':this.userData.id}
+        query: {'id': this.userData.id}
       })
+      // this.SET_USER_TO_HEADER(this.userData)
     }
   },
   mounted() {
